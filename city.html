@@ -1,0 +1,191 @@
+<html>
+    <head>
+        <title>GWC Graphics and Animation Week!</title>
+        <script src="http://cloud.github.com/downloads/processing-js/processing-js/processing-1.4.1.min.js"></script>
+        <script type="text/processing" data-processing-target="mycanvas">
+       
+        myBuilding building;
+        myCloud cloud;
+        
+        noStroke();
+        row1 = [];
+        row2 = [];
+        row3 = [];
+        cloud = [];
+        
+        void setup()
+        {
+            //numBuild = random(1, 10);
+            p = 0;
+            background(184, 220, 255);
+            size(1380,820);
+            
+            for (int i = 0; i < 6; i++)
+            {
+                //myCloud(x, y, width, height)
+                MyCloud cloud1 = new myCloud(random(10,1300), random(50,300), 200, 110);
+                cloud.push(cloud1);
+            }
+            for (int i = 0; i < 11; i++)
+            {
+                p = 138*i;
+                //myBuilding(row, width, height, xLocation, yLocation)
+                MyBuilding building1 = new myBuilding(1, 138, 820, p, random(105, 305));
+                row1.push(building1); 
+            }
+            
+            for (int i = 0; i < 9; i++)
+            {
+                p = 172.5*i;
+                //myBuilding(row, width, height, xLocation, yLocation)
+                MyBuilding building2 = new myBuilding(2, 172.5, 820, p, random(310,510));
+                row2.push(building2); 
+            }
+            
+            for (int i = 0; i < 7; i++)
+            {
+                p = 230*i;
+                MyBuilding building3 = new myBuilding (3, 230, 820, p, random(515,715));
+                row3.push(building3);
+            }
+            
+            
+        }
+
+        void draw()
+        {
+                background(184, 220, 255);
+                fill(255,225,0);
+                ellipse(1000, 70, 100, 100);
+				
+		
+			
+                
+                for (int i = 0; i < cloud.length; i++)
+                {
+                    myCloud currCloud = cloud[i];
+                    fill (255,255,255)
+                    currCloud.drawCloud();
+                    currCloud.move();
+                    if (cloud[i].myX > 1380)
+                        {
+                            cloud[i].myX = -138
+                        }
+                }
+                    
+                for (int i = 0; i < row1.length; i++) 
+                {
+                    //myFish = fishes(myFish)fishes.get(i);
+                    myBuilding currBuild = row1[i];
+                    fill (144,144,144);
+                    currBuild.drawBuild();
+                    currBuild.move();
+                    if (row1[i].myX > 1380)
+                        {
+                            row1[i].myX = -138
+
+                        }
+                }
+                
+                 for (int i = 0; i < row2.length; i++) 
+                {
+                    //myFish = fishes(myFish)fishes.get(i);
+                    myBuilding currBuild = row2[i];
+                    fill(91, 91, 91);
+                    currBuild.drawBuild();
+                    currBuild.move2();
+                    if (row2[i].myX > 1380)
+                        {
+                            row2[i].myX = -172.5
+                        }
+                }
+                
+                for (int i = 0; i < row3.length; i++)
+                {
+                    myBuilding currBuild = row3[i];
+                    fill (0,0,102);
+                    currBuild.drawBuild();
+                    currBuild.move3();
+                    if (row3[i].myX > 1380)
+                    {
+                        row3[i].myX = -230
+                    }
+                }
+                    
+
+        }
+        
+        class myBuilding 
+        {
+            var myRow;
+            var myWidth;
+            var myHeight;
+            var myX;
+            var myY;
+            
+            myBuilding(row, width, height, xLocation, yLocation)
+            {
+                myRow = row;
+                myWidth = width;
+                myX = xLocation;
+                myY = yLocation;
+                myHeight = height;
+            
+            }
+            
+            void move()
+            {
+                myX+=1;
+            }
+            
+            void move2()
+            {
+                myX+=2;
+            }
+            
+            void move3()
+            {
+                myX+=3;
+            }
+            
+            void drawBuild()
+            {
+                rect(myX,myY,myWidth,myHeight);
+            }
+                
+        }           
+        
+        
+        class myCloud {
+            var myX;
+            var myY;
+            var myWidth;
+            var myHeight;
+            
+            myCloud(x, y, width, height)
+            {
+                myX = x;
+                myY = y;
+                myWidth = width;
+                myHeight = height;
+            }
+            
+            void move()
+            {
+                myX+=0.5;
+            }
+            
+            void drawCloud()
+            {
+                ellipse(myX, myY, myWidth, myHeight);
+                ellipse(myX+50, myY, myWidth-20, myHeight-30);
+                ellipse(myX-50, myY, myWidth-20, myHeight-30);
+            }
+        
+        }
+        </script>
+    </head>
+    <body>
+        <canvas id="mycanvas"></canvas>
+    </body>
+</html>
